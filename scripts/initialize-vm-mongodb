@@ -1,0 +1,58 @@
+
+export INST=florinc-nodejs-01
+multipass launch --name $INST
+multipass ls
+multipass shell $INST
+
+# https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+
+wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+
+sudo apt-get update
+
+sudo apt-get install -y mongodb-org
+
+# Mount data drive
+
+export INST=florinc-vm-03
+export MONGODATA=/Users/florinc/dev/mongodb/data/replica-03
+export REMOTEMONGODATA=/home/ubuntu/mongodb/data/replica
+multipass mount $MONGODATA $INST:$REMOTEMONGODATA
+
+multipass ls
+
+
+multipass shell $INST
+
+####
+
+# Edit /etc/mongod.conf
+
+sudo vi /etc/mongod.conf
+
+storage:
+  dbPath: /home/ubuntu/mongodb/data # /var/lib/mongodb 
+
+net:
+  port: 27017
+  bindIp: 127.0.0.1,192.168.64.5
+
+replication:
+  replSetName: "florinc-replicaset-02"
+
+sudo systemctl enable mongod.service
+sudo systemctl restart mongod.service
+sudo systemctl start mongod
+sudo systemctl status mongod
+
+mongosh "mongodb://192.168.64.4:27017"
+rs.initiate()
+rs.add("192.168.64.5")
+show dbs
+use florinc-demo-db
+db.users.insertOne({name:"Florin Chelaru", email:"florin.chelaru@gmail.com"})
+db.users.insertOne({name:"Susanna Alice Johnson-Chelaru", email:"susannaalicej@gmail.com"})
+db.users.find()
+db.getMongo().setReadPref('nearest')
