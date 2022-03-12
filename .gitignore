@@ -1,3 +1,7 @@
 .DS_Store
 node_modules
 nodejs-vm-01/build
+express-ui-01/dist
+express-ui-02/dist
+express-ui-02/bin
+.idea

@@ -1,0 +1,62 @@
+export INST=express-ui-02
+multipass launch --name $INST
+multipass ls
+mkdir $INST
+
+
+export NODECODE=/Users/florinc/dev/mean-nodejs-01/$INST
+export REMOTENODECODE=/home/ubuntu/app
+multipass mount $NODECODE $INST:$REMOTENODECODE
+
+multipass shell $INST
+
+# https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04
+sudo apt update
+sudo apt install nodejs # requires Y/n
+node -v
+sudo apt install npm
+
+# update nodejs to latest version: https://phoenixnap.com/kb/update-node-js-version
+
+npm cache clean -f
+sudo npm install -g n
+sudo n stable
+hash -r
+node --version
+
+# https://expressjs.com/en/starter/generator.html
+
+npx express-generator
+express --view=pug app
+cd app
+npm install
+npm audit fix --force
+npm audit fix --force # second one is needed to update pug
+
+# launch app: 
+DEBUG=app:* npm start
+
+# navigate to http://192.168.64.7:3000/
+
+
+# add typescript to nodejs: https://www.digitalocean.com/community/tutorials/setting-up-a-node-project-with-typescript
+
+
+
+# https://www.npmjs.com/package/express-generator-typescript
+
+cd app
+sudo npm install -g express-generator-typescript
+npx express-generator-typescript .
+
+npm run start:dev
+
+# Available commands for the server.
+Run the server in development mode: npm run start:dev.
+Run all unit-tests with hot-reloading: npm test.
+Run a single unit-test: npm test -- --testFile="name of test file" (i.e. --testFile=Users).
+Run all unit-tests without hot-reloading: npm run test:no-reloading
+Check for linting errors: npm run lint.
+Build the project for production: npm run build.
+Run the production build: npm start.
+Run production build with a different env file npm start -- --env="name of env file" (default is production).
