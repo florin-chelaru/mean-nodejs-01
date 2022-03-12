@@ -1,5 +1,5 @@
 
-export INST=florinc-nodejs-01
+export INST=mongodb-vm-01
 multipass launch --name $INST
 multipass ls
 multipass shell $INST
@@ -16,8 +16,8 @@ sudo apt-get install -y mongodb-org
 
 # Mount data drive
 
-export INST=florinc-vm-03
-export MONGODATA=/Users/florinc/dev/mongodb/data/replica-03
+export INST=mongodb-vm-01
+export MONGODATA=/Users/florinc/dev/mongodb/data/$INST
 export REMOTEMONGODATA=/home/ubuntu/mongodb/data/replica
 multipass mount $MONGODATA $INST:$REMOTEMONGODATA
 
@@ -25,6 +25,8 @@ multipass ls
 
 
 multipass shell $INST
+
+chown mongodb /home/ubuntu/mongodb/data/replica
 
 ####
 
@@ -47,9 +49,9 @@ sudo systemctl restart mongod.service
 sudo systemctl start mongod
 sudo systemctl status mongod
 
-mongosh "mongodb://192.168.64.4:27017"
+mongosh "mongodb://192.168.64.3:27017"
 rs.initiate()
-rs.add("192.168.64.5")
+rs.add("192.168.64.3")
 show dbs
 use florinc-demo-db
 db.users.insertOne({name:"Florin Chelaru", email:"florin.chelaru@gmail.com"})
