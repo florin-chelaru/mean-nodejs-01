@@ -1,8 +1,12 @@
 
-export INST=florinc-nodejs-01
+export INST=nodejs-vm-01
 multipass launch --name $INST
 multipass ls
 multipass shell $INST
+
+export NODECODE=/Users/florinc/dev/mean-nodejs-01/$INST
+export REMOTENODECODE=/home/ubuntu/nodejs/app
+multipass mount $NODECODE $INST:$REMOTENODECODE
 
 # https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04
 sudo apt update
@@ -10,14 +14,112 @@ sudo apt install nodejs
 node -v
 sudo apt install npm
 
-# express: https://expressjs.com/en/starter/installing.html
-mkdir florinc-demo-01
-cd florinc-demo-01
+# update nodejs to latest version: https://phoenixnap.com/kb/update-node-js-version
+
+npm cache clean -f
+sudo npm install -g n
+sudo n stable
+hash -r
+node --version
+
+# typescript: https://www.digitalocean.com/community/tutorials/setting-up-a-node-project-with-typescript
+cd /home/ubuntu/nodejs/app
 
 npm init
 
+npm install --save-dev typescript
+
+vi tsconfig.json
+
+====
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "build"
+  },
+  "lib": ["es2015"]
+}
+====
+
+
+# express: https://expressjs.com/en/starter/installing.html
 npm install express --save
 
+mkdir src
+vi src/app.ts
+
+====
+import express from 'express';
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+app.listen(port, () => {
+  return console.log(`Express is listening at http://localhost:${port}`);
+});
+====
+
+npx tsc
+node build/app.js
+
+now navigate to http://192.168.64.4:3000/ and you should see "Hello World!"
+
+# set up the linter: https://www.digitalocean.com/community/tutorials/setting-up-a-node-project-with-typescript
+npm install --save-dev eslint
+npx eslint --init
+
+# This will ask you a series of questions. For this project we’ll answer the following:
+
+How would you like to use ESLint?: To check syntax and find problems
+What type of modules does your project use?: JavaScript modules (import/export)
+Which framework does your project use?: None of these
+Does your project use TypeScript?: Yes
+Where does your code run?: Node
+What format do you want your config file to be in?: JavaScript
+Finally, you will be prompted to install some additioanl eslint libraries. Choose Yes.
+
+# to run linter:
+npx eslint . --ext .ts
+
+# modify package.json:
+
+====
+{
+  "name": "node_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/app.js",
+  "scripts": {
+    "start": "tsc && node build/app.js",
+    "lint": "eslint . --ext .ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.1",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "eslint": "^8.3.0",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
+
+====
+
+# if you accidentally added node_modules to git:
+git rm -r --cached node_modules
 
 npx express-generator
 
