@@ -1,0 +1,23 @@
+{
+   "type": "mongodb",
+   "host": "192.168.64.3",
+   "port": 27017,
+   "database": "florinc-demo-db",
+   "synchronize": true,
+   "logging": false,
+   "entities": [
+      "build/entity/*.js"
+   ],
+   "migrations": [
+      "build/migration/*.js"
+   ],
+   "subscribers": [
+      "build/subscriber/*.js"
+   ],
+   "cli": {
+      "entitiesDir": "build/entity",
+      "migrationsDir": "build/migration",
+      "subscribersDir": "build/subscriber"
+   },
+   "useUnifiedTopology": true
+}

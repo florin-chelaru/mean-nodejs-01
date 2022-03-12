@@ -121,6 +121,23 @@ npx eslint . --ext .ts
 # if you accidentally added node_modules to git:
 git rm -r --cached node_modules
 
+
+# install TypeOrm: https://typeorm.io/#/
+
+npm install typeorm --save
+npm install reflect-metadata --save
+npm install @types/node --save-dev
+npm install mongodb@^3.6.0 --save
+
+# add to tsconfig.json:
+
+====
+"emitDecoratorMetadata": true,
+"experimentalDecorators": true,
+====
+
+#### Older ####
+
 npx express-generator
 
 # generate app: https://expressjs.com/en/starter/generator.html
