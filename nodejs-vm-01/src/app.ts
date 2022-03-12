@@ -1,34 +1,33 @@
 import express from 'express';
+import { Request, Response } from "express";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import { User } from "./entity/User";
+import { AppRoutes } from "./routes";
 
-const app = express();
-const port = 3000;
-
-app.set('json spaces', 0);
-
+// create connection with database
+// note that it's not active database connection
+// TypeORM creates connection pools and uses them for your requests
 createConnection().then(async connection => {
-    // here you can start to work with your entities
-    console.log(`Connection to mongodb is successful`);
 
-    let user = new User();
-    user.name = "George Chelaru";
-    user.email = "george.chelaru@gmail.com";
+    // create express app
+    const port = 3000;
+    const app = express();
+    app.set('json spaces', 0);
 
-    await connection.manager.save(user);
-    console.log("User has been saved");
+    // register all application routes
+    AppRoutes.forEach(route => {
+        app[route.method](route.path, (request: Request, response: Response, next: Function) => {
+            route.action(request, response)
+                .then(() => next)
+                .catch(err => next(err));
+        });
+    });
 
-    let users = await connection.manager.find(User);
-    console.log("All users from the db: ", users);
-}).catch(error => console.log(error));
+    // run app
+    app.listen(port);
 
-app.get('/', (req, res) => {
-  // res.send('Hello World!');
-  res.json({ a: "foo", b: 1});
-});
+    console.log(`Express application is up and running on port ${port}`);
 
-app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
-});
+}).catch(error => console.log("TypeORM connection error: ", error));
 
