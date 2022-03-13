@@ -72,6 +72,8 @@ npm install http-status-codes --save
 npm install jet-logger --save
 npm install express-async-errors --save
 npm install @types/node --save-dev
+
+# set up the linter: https://www.digitalocean.com/community/tutorials/setting-up-a-node-project-with-typescript
 npm install --save-dev eslint
 
 # This will ask you a series of questions. For this project we’ll answer the following:
@@ -89,24 +91,14 @@ npx eslint . --ext .ts
 npx tsc
 set DEBUG=app:* & npm start
 
-now navigate to http://192.168.64.4:3000/ and you should see "Hello World!"
+# now navigate to http://192.168.64.4:3000/ and you should see "Hello World!"
 
-# set up the linter: https://www.digitalocean.com/community/tutorials/setting-up-a-node-project-with-typescript
-npm install --save-dev eslint
-npx eslint --init
+==== 
 
-# This will ask you a series of questions. For this project we’ll answer the following:
+# Bootstrap
 
-How would you like to use ESLint?: To check syntax and find problems
-What type of modules does your project use?: JavaScript modules (import/export)
-Which framework does your project use?: None of these
-Does your project use TypeScript?: Yes
-Where does your code run?: Node
-What format do you want your config file to be in?: JavaScript
-Finally, you will be prompted to install some additioanl eslint libraries. Choose Yes.
 
-# to run linter:
-npx eslint . --ext .ts
+
 
 # modify package.json:
 
