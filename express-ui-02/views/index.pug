@@ -28,8 +28,11 @@ block content
     .bg-light(class='p-5 rounded')
       h1 Welcome to #{title}
 
-      each val in [1, 2, 3, 4, 5]
+      each user in users
         .card.mb-3
-          .card-body Foo #{val}
+          .card-body
+            h5.card-title #{user.name}
+            h6.card-subtitle.mb-2.text-muted #{user.id}
+            p.card-text #{user.email}
 
-      
+

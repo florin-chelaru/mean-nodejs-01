@@ -97,8 +97,9 @@ set DEBUG=app:* & npm start
 
 # Bootstrap
 
+npm install bootstrap --save
 
-
+# Fetch in typescript: https://www.npmjs.com/package/node-fetch
 
 # modify package.json:
 
