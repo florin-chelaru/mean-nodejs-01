@@ -1,11 +1,7 @@
 import { Request, Response, Router } from 'express';
 import fetch from 'node-fetch';
 
-interface User {
-  id: string,
-  name: string,
-  email: string
-}
+import { User } from '../models/user';
 
 const router = Router();
 
