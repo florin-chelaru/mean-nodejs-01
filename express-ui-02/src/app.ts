@@ -23,18 +23,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(basedir, 'public')));
+app.use(express.static(path.join(basedir, 'frontend')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.use((err: Error | CustomError, _: Request, res: Response, next: NextFunction) => {
+  console.log(err);
   next(createError(404));
 });
 
 app.use((err: Error | CustomError, req: Request, res: Response) => {
     // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+//     console.log(err);
+//     console.log(req);
+//     console.log(res);
+//     res.locals.message = err.message;
+//     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
     // render the error page
     const status = (err instanceof CustomError ? err.HttpStatus : StatusCodes.BAD_REQUEST);

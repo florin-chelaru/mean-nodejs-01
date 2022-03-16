@@ -12,7 +12,7 @@ html
         crossorigin='anonymous')
 
     // Show it is fixed to the top
-    style(type="text/css").
+    style(type='text/css').
       body {
         min-height: 75rem;
         padding-top: 4.5rem;
@@ -22,7 +22,52 @@ html
     block scripts
       // Bootstrap Bundle with Popper
       script(
-          src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js',
-          integrity='sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p',
+          src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js'
+          integrity='sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p'
           crossorigin='anonymous')
+      script(src='https://accounts.google.com/gsi/client' async defer)
+
+      script(src='/node_modules/requirejs/require.js' data-main="/dist/require-config.js")
+      script(src='/node_modules/jwt-decode/build/jwt-decode.esm.js' )
+      script(src='/dist/require-config.js')
+
+       script(src='/dist/auth.js' type='module')
+
+      script(src='/dist/foo.js')
+
+    // Navbar
+    nav(class='navbar navbar-expand-md navbar-dark fixed-top bg-dark')
+      .container-fluid
+        a.navbar-brand(href='#') Fixed Navbar
+        button(
+            class='navbar-toggler'
+            type='button'
+            data-bs-toggle='collapse'
+            data-bs-target='#navbarCollapse'
+            aria-controls='navbarCollapse'
+            aria-expanded='false'
+            aria-label='Toggle navigation')
+          span(class='navbar-toggler-icon')
+        .collapse(class='navbar-collapse' id='navbarCollapse')
+          ul(class='navbar-nav me-auto mb-2 mb-md-0')
+            li.nav-item
+              a.nav-link(class='active' aria-current='page' href='#') Home
+            li.nav-item
+              a.nav-link(href='#') Link
+            li.nav-item
+              a.nav-link(class='disabled') Disabled
+          // form.d-flex
+          //   input(class='form-control me-2' type='search' placeholder='Search' aria-label='Search')
+          //   button(class='btn btn-outline-success' type='submit') Search
+          #g_id_onload(
+            data-client_id='1057836076662-ehncq8hs6n3jvaulecvvlejafgcfj04v.apps.googleusercontent.com'
+            data-callback='handleCredentialResponse'
+            data-auto_prompt="false")
+          .g_id_signin(
+            data-type='standard'
+            data-size='large'
+            data-theme='outline'
+            data-text='sign_in_with'
+            data-shape='rectangular'
+            data-logo_alignment='left')
     block content
