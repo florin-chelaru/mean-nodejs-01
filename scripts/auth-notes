@@ -1,0 +1,23 @@
+# Tutorial for JWT tokens: https://www.youtube.com/watch?v=mbsmsi7l3r4&ab_channel=WebDevSimplified
+
+# What happens if your JWT is stolen: https://developer.okta.com/blog/2018/06/20/what-happens-if-your-jwt-is-stolen
+
+# From: https://blog.logrocket.com/jwt-authentication-best-practices/#:~:text=A%20JWT%20needs%20to%20be,attacker%20access%20to%20the%20token.
+
+To keep them secure, you should always store JWTs inside an httpOnly cookie. This is a special kind of cookie that’s only sent in HTTP requests to the server. It’s never accessible (both for reading or writing) from JavaScript running in the browser.
+
+
+# Google auth blog: https://medium.com/@jackrobertscott/how-to-use-google-auth-api-with-node-js-888304f7e3a0
+# Google login button: https://developers.google.com/identity/gsi/web/guides/display-button
+
+# continue login here, where we receive the login token: https://developers.google.com/identity/gsi/web/reference/js-reference#login_uri
+
+# Map custom domain to ip address
+sudo vi /private/etc/hosts
+
+# HTTPS certificate: create it like this. https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development/
+# and load certificate like this:
+var server = https.createServer({
+    key: fs.readFileSync('certs/test.expressui.com.key'),
+    cert: fs.readFileSync('certs/test.expressui.com.crt')
+}, app);
