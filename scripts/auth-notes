@@ -24,3 +24,5 @@ var server = https.createServer({
     cert: fs.readFileSync('certs/test.expressui.com.crt')
 }, app);
 
+
+# This shows you how to set a HTTPOnly cookie on the server side, making all requests to the server secure: https://javascript.plainenglish.io/how-to-secure-jwt-in-a-single-page-application-6a46e69fc393
