@@ -27,6 +27,14 @@ node --version
 
 # https://reactjs.org/docs/create-a-new-react-app.html
 
-# looks like we need to create it in another folder and then move it here
+# looks like we need to create it in another folder and then move it here. if we do that, we'll have to change the owner of the folders generated.
+# maybe next time we just start with the basic project i just created, and call npm install:
+# https://github.com/academind/react-complete-guide-code/tree/zz-reactjs-summary/code/01-starting-project
 cd ~/react/app
 npx create-react-app my-app
+npm start
+
+sudo npm install -g serve
+
+npm run build
+serve -s build
