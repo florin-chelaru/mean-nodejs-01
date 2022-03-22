@@ -1,4 +1,5 @@
 # Tutorial youtube: https://www.youtube.com/watch?v=Dorf8i6lCuk&ab_channel=Academind
+# Chapter we're at: adding routing
 
 export INST=react-vm-01
 multipass launch --name $INST
