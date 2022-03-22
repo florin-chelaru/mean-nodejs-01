@@ -1,0 +1,32 @@
+# Tutorial youtube: https://www.youtube.com/watch?v=Dorf8i6lCuk&ab_channel=Academind
+
+export INST=react-vm-01
+multipass launch --name $INST
+multipass ls
+
+export NODECODE=/Users/florinc/dev/mean-nodejs-01/$INST
+mkdir -p /Users/florinc/dev/mean-nodejs-01/$INST
+export REMOTENODECODE=/home/ubuntu/react/app
+multipass mount $NODECODE $INST:$REMOTENODECODE
+
+multipass shell $INST
+
+# https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04
+sudo apt update
+sudo apt install nodejs
+node -v
+sudo apt install npm
+
+# update nodejs to latest version: https://phoenixnap.com/kb/update-node-js-version
+
+npm cache clean -f
+sudo npm install -g n
+sudo n stable
+hash -r
+node --version
+
+# https://reactjs.org/docs/create-a-new-react-app.html
+
+# looks like we need to create it in another folder and then move it here
+cd ~/react/app
+npx create-react-app my-app
