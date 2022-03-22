@@ -26,3 +26,8 @@ var server = https.createServer({
 
 
 # This shows you how to set a HTTPOnly cookie on the server side, making all requests to the server secure: https://javascript.plainenglish.io/how-to-secure-jwt-in-a-single-page-application-6a46e69fc393
+
+# More CSRF links
+https://www.youtube.com/watch?v=2uvrGQEy8i4&ab_channel=OWASPLondon (slides: https://owasp.org/www-pdf-archive/David_Johansson-Double_Defeat_of_Double-Submit_Cookie.pdf). The slides reference this AngularJS protection: https://www.synopsys.com/blogs/software-security/angularjs-security-http-service/
+This question hints better as to how the implementation must look like: https://stackoverflow.com/questions/41064749/csrf-protection-in-a-angular-spa-using-double-submit-cookie
+See this answer for creating a CSRF interceptor in Angular: https://stackoverflow.com/questions/48729070/csrf-protection-in-angular-js-application-with-cross-domain
