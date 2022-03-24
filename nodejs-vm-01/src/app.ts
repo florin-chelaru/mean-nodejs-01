@@ -13,6 +13,7 @@ createConnection().then(async connection => {
     // create express app
     const port = 3000;
     const app = express();
+    app.use(express.json());
     app.set('json spaces', 0);
 
     // register all application routes

@@ -4,13 +4,16 @@ multipass launch --name $INST
 multipass ls
 multipass shell $INST
 
-export NODECODE=/Users/florinc/dev/mean-nodejs-01/$INST
+export CODEHOME=/Users/florinc/dev/git
+export NODECODE=$CODEHOME/$INST
+mkdir -p $NODECODE
 export REMOTENODECODE=/home/ubuntu/nodejs/app
 multipass mount $NODECODE $INST:$REMOTENODECODE
 
+
 # https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04
-sudo apt update
-sudo apt install nodejs
+/usr/bin/yes | sudo apt update
+/usr/bin/yes | sudo apt install nodejs
 node -v
 sudo apt install npm
 
