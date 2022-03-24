@@ -6,7 +6,11 @@ import classes from './NewMeetupForm.module.css';
 import Card from "../ui/Card";
 import Meetup from "../../models/Meetup";
 
-const NewMeetupForm = () => {
+interface MeetupProps {
+  onAddMeetup: ((meetup: Meetup) => void);
+}
+
+const NewMeetupForm = (props: MeetupProps) => {
   const titleInputRef = useRef<HTMLInputElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const addressInputRef = useRef<HTMLInputElement>(null);
@@ -20,7 +24,7 @@ const NewMeetupForm = () => {
     const enteredDescription = descriptionTextareaRef.current?.value || '';
 
     const meetup = new Meetup('my-id', enteredTitle, enteredImage, enteredAddress, enteredDescription);
-    console.log(meetup);
+    props.onAddMeetup(meetup);
   };
   return <Card>
     <form className={classes.form} onSubmit={submitHandler}>
