@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { Request, Response } from "express";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
@@ -14,6 +15,7 @@ createConnection().then(async connection => {
     const port = 3000;
     const app = express();
     app.use(express.json());
+    app.use(cors());
     app.set('json spaces', 0);
 
     // register all application routes

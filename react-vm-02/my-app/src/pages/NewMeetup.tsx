@@ -1,9 +1,22 @@
+import {useNavigate} from 'react-router-dom';
+
 import NewMeetupForm from "../components/meetups/NewMeetupForm";
 import Meetup from "../models/Meetup";
 
 const NewMeetupPage = () => {
-  const addMeetupHandler = (meetup: Meetup) => {
-    console.log(meetup);
+  const navigate = useNavigate();
+  const addMeetupHandler = async (meetup: Meetup) => {
+    await fetch(
+      'http://192.168.64.10:3000/meetup',
+      {
+        method: 'POST',
+        body: JSON.stringify(meetup),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    navigate('/');
   };
   return (
     <section>

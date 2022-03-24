@@ -23,7 +23,7 @@ const NewMeetupForm = (props: MeetupProps) => {
     const enteredAddress = addressInputRef.current?.value || '';
     const enteredDescription = descriptionTextareaRef.current?.value || '';
 
-    const meetup = new Meetup('my-id', enteredTitle, enteredImage, enteredAddress, enteredDescription);
+    const meetup = new Meetup(undefined, enteredTitle, enteredImage, enteredAddress, enteredDescription);
     props.onAddMeetup(meetup);
   };
   return <Card>

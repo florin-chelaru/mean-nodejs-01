@@ -1,10 +1,10 @@
 class Meetup {
-  id: string;
+  id: string | undefined;
   image: string;
   title: string;
   address: string;
   description: string;
-  constructor(id: string, title: string, image: string, address: string, description: string) {
+  constructor(id: string | undefined, title: string, image: string, address: string, description: string) {
     this.id = id;
     this.image = image;
     this.title = title;

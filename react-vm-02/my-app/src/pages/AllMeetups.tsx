@@ -1,28 +1,40 @@
+import {useState, useEffect} from "react";
+
 import Meetup from "../models/Meetup";
 import MeetupList from "../components/meetups/MeetupList";
 
-const DUMMY_DATA = [
-  new Meetup(
-    'm1',
-    'This is a first meetup',
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg',
-    'Meetupstreet 5, 12345 Meetup City',
-    'This is a first, amazing meetup which you definitely should not miss. It will be a lot of fun!'
-  ),
-  new Meetup(
-    'm2',
-    'This is a second meetup',
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg',
-    'Meetupstreet 5, 12345 Meetup City',
-    'This is a first, amazing meetup which you definitely should not miss. It will be a lot of fun!'
-  )
-];
+const AllMeetupsPage = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [loadedMeetups, setLoadedMeetups] = useState<Meetup[]>([]);
 
-const AllMeetupsPage = () =>
-  <section>
-    <h1>All meetups</h1>
-    <MeetupList meetups={DUMMY_DATA} />
-  </section>
-;
+  const getMeetups = async () => {
+    const response = await fetch('http://192.168.64.10:3000/meetups');
+    const meetups: Meetup[] = await response.json();
+    return meetups;
+  }
+
+  useEffect(() => {
+      setIsLoading(true);
+      getMeetups().then((meetups) => {
+        setIsLoading(false);
+        setLoadedMeetups(meetups);
+      });
+    },
+    // only execute when the below dependencies change. and since there's no dependency, it only executes once.
+    []);
+
+  if (isLoading) {
+    return <section>
+      <p>Loading...</p>
+    </section>;
+  }
+
+  return (
+    <section>
+      <h1>All meetups</h1>
+      <MeetupList meetups={loadedMeetups}/>
+    </section>
+  );
+};
 
 export default AllMeetupsPage;
