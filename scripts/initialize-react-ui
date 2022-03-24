@@ -1,12 +1,15 @@
 # Tutorial youtube: https://www.youtube.com/watch?v=Dorf8i6lCuk&ab_channel=Academind
 # Chapter we're at: adding routing
 
-export INST=react-vm-01
+export INST=react-vm-02
 multipass launch --name $INST
 multipass ls
 
-export NODECODE=/Users/florinc/dev/mean-nodejs-01/$INST
-mkdir -p /Users/florinc/dev/mean-nodejs-01/$INST
+# export CODEHOME=/Users/florinc/dev/mean-nodejs-01
+
+export CODEHOME=/Users/florinc/dev/git
+export NODECODE=$CODEHOME/$INST
+mkdir -p $NODECODE
 export REMOTENODECODE=/home/ubuntu/react/app
 multipass mount $NODECODE $INST:$REMOTENODECODE
 
@@ -33,6 +36,7 @@ node --version
 # https://github.com/academind/react-complete-guide-code/tree/zz-reactjs-summary/code/01-starting-project
 cd ~/react/app
 npx create-react-app my-app
+# or: npx create-react-app my-app --template typescript
 npm start
 
 sudo npm install -g serve
