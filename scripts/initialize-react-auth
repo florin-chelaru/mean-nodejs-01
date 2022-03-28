@@ -1,7 +1,6 @@
-# Tutorial youtube: https://www.youtube.com/watch?v=Dorf8i6lCuk&ab_channel=Academind
-# Chapter we're at: adding routing
+# Tutorial youtube: https://www.youtube.com/watch?v=OUP-urBy1k4&list=PL9fz35uPeK2R9mmgr9ocA8HOwT-2bzXeZ&index=2&t=1087s&ab_channel=ScalableScripts
 
-export INST=react-vm-02
+export INST=react-auth-01
 multipass launch --name $INST
 multipass ls
 
@@ -17,9 +16,7 @@ multipass shell $INST
 
 # https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04
 sudo apt update
-sudo apt install nodejs
-node -v
-sudo apt install npm
+/usr/bin/yes | sudo apt install npm
 
 # update nodejs to latest version: https://phoenixnap.com/kb/update-node-js-version
 
