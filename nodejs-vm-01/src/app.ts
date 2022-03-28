@@ -11,6 +11,8 @@ import { AppRoutes } from "./routes";
 // TypeORM creates connection pools and uses them for your requests
 createConnection().then(async connection => {
 
+    console.log(connection);
+
     // create express app
     const port = 3000;
     const app = express();

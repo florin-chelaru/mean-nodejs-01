@@ -1,6 +1,7 @@
 {
    "type": "mongodb",
-   "host": "192.168.64.4",
+   "host": "192.168.64.5",
+   "secondaryOk": true,
    "port": 27017,
    "database": "florinc-demo-db",
    "synchronize": true,
