@@ -1,0 +1,9 @@
+### Send POST request with json body
+POST http://192.168.64.10:3000/register
+Content-Type: application/json
+
+{
+  "name": "Susanna Johnson-Chelaru",
+  "email": "susannaalicej@gmail.com",
+  "password": "4321"
+}

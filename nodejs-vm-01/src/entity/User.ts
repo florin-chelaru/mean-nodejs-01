@@ -1,13 +1,17 @@
-import { Entity, Column, ObjectID, ObjectIdColumn } from "typeorm";
+import {Entity, Column, ObjectIdColumn} from "typeorm";
+import {ObjectID} from "mongodb";
 
 @Entity({name: "users"})
-export class User {
-    @ObjectIdColumn()
-    id: ObjectID;
+export default class User {
+  @ObjectIdColumn()
+  id?: ObjectID;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()
-    email: string;
+  @Column()
+  email: string;
+
+  @Column()
+  password: string;
 }

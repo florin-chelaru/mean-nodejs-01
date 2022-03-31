@@ -8,6 +8,7 @@ export CODEHOME=/Users/florinc/dev/git
 export NODECODE=$CODEHOME/$INST
 mkdir -p $NODECODE
 export REMOTENODECODE=/home/ubuntu/nodejs/app
+multipass umount $INST:$REMOTENODECODE
 multipass mount $NODECODE $INST:$REMOTENODECODE
 
 
@@ -15,7 +16,7 @@ multipass mount $NODECODE $INST:$REMOTENODECODE
 /usr/bin/yes | sudo apt update
 /usr/bin/yes | sudo apt install nodejs
 node -v
-sudo apt install npm
+/usr/bin/yes | sudo apt install npm
 
 # update nodejs to latest version: https://phoenixnap.com/kb/update-node-js-version
 

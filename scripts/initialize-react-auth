@@ -40,3 +40,8 @@ sudo npm install -g serve
 
 npm run build
 serve -s build
+
+====
+
+The backend login functionality:
+https://github.com/scalablescripts/auth-backend/blob/1a342ae404fe4a3fb6c3b416f6395e75218e1f16/app/Http/Controllers/AuthController.php

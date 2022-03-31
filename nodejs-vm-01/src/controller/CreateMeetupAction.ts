@@ -5,7 +5,7 @@ import Meetup from "../entity/Meetup";
 export async function createMeetupAction(request: Request, response: Response) {
   const meetup: Meetup = request.body;
   delete meetup.id;
-  console.log(meetup);
+  // console.log(meetup);
   const meetupRepository = getManager().getMongoRepository(Meetup);
   await meetupRepository.insertOne(meetup);
   const meetups = await meetupRepository.find();
