@@ -29,6 +29,9 @@ node --version
 # typescript: https://www.digitalocean.com/community/tutorials/setting-up-a-node-project-with-typescript
 cd /home/ubuntu/nodejs/app
 
+mkdir -p /home/ubuntu/nodejs/app/api
+cd /home/ubuntu/nodejs/app/api
+
 npm init
 
 npm install --save-dev typescript
@@ -52,6 +55,7 @@ vi tsconfig.json
 
 # express: https://expressjs.com/en/starter/installing.html
 npm install express --save
+npm install @types/express --save
 
 mkdir src
 vi src/app.ts

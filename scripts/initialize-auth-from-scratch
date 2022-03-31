@@ -1,0 +1,26 @@
+export INST=api-auth-01
+multipass launch --name $INST
+multipass ls
+
+
+export CODEHOME=/Users/florinc/dev/git
+export NODECODE=$CODEHOME/$INST
+mkdir -p $NODECODE
+export REMOTENODECODE=/home/ubuntu/nodejs/app
+multipass umount $INST:$REMOTENODECODE
+multipass mount $NODECODE $INST:$REMOTENODECODE
+
+multipass shell $INST
+
+# https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04
+sudo apt update
+/usr/bin/yes | sudo apt install npm
+
+# update nodejs to latest version: https://phoenixnap.com/kb/update-node-js-version
+
+npm cache clean -f
+sudo npm install -g n
+sudo n stable
+hash -r
+node --version
+
