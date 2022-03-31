@@ -1,4 +1,4 @@
-import express, {NextFunction, Request, Response} from "express";
+import express from "express";
 import https from 'https';
 import fs from "fs";
 import IAction from "./actions/IAction";
@@ -9,6 +9,7 @@ import JWTStrategy from "passport-jwt";
 import BooksAction from "./actions/Books";
 import cookies from "cookie-parser";
 import jwt from "jsonwebtoken";
+import cors from "cors";
 
 
 export default class Api {
@@ -25,6 +26,14 @@ export default class Api {
     app.set('json spaces', 0);
 
     app.use(cookies());
+
+    const corsOptions = {
+      origin: 'https://bunny.com:3000',
+      optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+      credentials: true,
+      allowedHeaders: ['Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With']
+    };
 
     // This is the strategy setup for JWT so that we can use tokens instead of sessions.
     passport.use(
@@ -50,17 +59,25 @@ export default class Api {
     );
 
     const server = https.createServer({
-      key: fs.readFileSync('certs/api.bunny.com.key'),
-      cert: fs.readFileSync('certs/api.bunny.com.cer'),
+      key: fs.readFileSync('certs/bunny.com+1-key.pem'),
+      cert: fs.readFileSync('certs/bunny.com+1.pem'),
       // sudo vi /etc/environment
       // set CERT_PASSPHRASE to something
       // source /etc/passphrase
       passphrase: process.env.CERT_PASSPHRASE
     }, app);
 
-    const actions: IAction[] = [new LoginAction(), new LogoutAction()];
-    const actionsWithAuth: IAction[] = [new BooksAction()];
-    actions.forEach(action => app[action.method](action.path, action.apply));
+    const actions: IAction[] = [
+      new LoginAction(),
+      new LogoutAction()
+    ];
+    const actionsWithAuth: IAction[] = [
+      new BooksAction()
+    ];
+
+    // http://johnzhang.io/options-request-in-express
+    app.options('/*', cors(corsOptions)); // include before other routes
+    actions.forEach(action => app[action.method](action.path, cors(corsOptions), action.apply));
     actionsWithAuth.forEach(
       action => app[action.method](
         action.path,

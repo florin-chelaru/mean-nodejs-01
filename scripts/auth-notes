@@ -24,6 +24,18 @@ var server = https.createServer({
     cert: fs.readFileSync('certs/test.expressui.com.crt')
 }, app);
 
+# So in order for Chrome not to complain at all you also need to become a certification authority. Below are some links.
+# https://github.com/FiloSottile/mkcert
+mkcert --install
+mkcert bunny.com "*.bunny.com"
+# in /etc/environment:
+SSL_CRT_FILE=/home/ubuntu/react/app/my-app/cert/bunny.com+1.pem
+SSL_KEY_FILE=/home/ubuntu/react/app/my-app/cert/bunny.com+1-key.pem
+
+# More: https://www.freecodecamp.org/news/how-to-set-up-https-locally-with-create-react-app/
+# React SSL certificate: https://create-react-app.dev/docs/using-https-in-development/#custom-ssl-certificate
+# And: https://stackoverflow.com/questions/41192491/how-can-i-provide-a-ssl-certificate-with-create-react-app
+
 
 # This shows you how to set a HTTPOnly cookie on the server side, making all requests to the server secure: https://javascript.plainenglish.io/how-to-secure-jwt-in-a-single-page-application-6a46e69fc393
 

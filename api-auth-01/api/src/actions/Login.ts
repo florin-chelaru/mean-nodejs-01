@@ -11,7 +11,7 @@ export default class LoginAction implements IAction {
 
   apply(req: Request, res: Response, next: NextFunction) {
     const user = req.body;
-    if (user.email !== 'florinc' || user.password !== '1234') {
+    if (user.email !== 'florinc@bunny.com' || user.password !== '1234') {
       res.status(HttpStatus.FORBIDDEN).send();
       return;
     }

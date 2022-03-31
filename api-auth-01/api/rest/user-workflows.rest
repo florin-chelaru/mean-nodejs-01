@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "email": "florinc",
-  "password": "1234"
+  "password": "12345"
 }
 
 ### Logout user
@@ -15,4 +15,7 @@ Content-Type: application/json
 GET https://api.bunny.com:3000/books
 Content-Type: application/json
 Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZsb3JpbmMiLCJwYXNzd29yZCI6IjEyMzQiLCJpYXQiOjE2NDg3MjQyMjYsImV4cCI6MTY0ODcyNzgyNn0.SSRwREi5PbQo8kLdKsFfLifAh83mcN5qq8kg5fvkZkU; Domain=bunny.com; Path=/; HttpOnly; Secure
+
+### Login options
+OPTIONS https://api.bunny.com:3000/
 

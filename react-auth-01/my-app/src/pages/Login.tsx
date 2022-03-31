@@ -14,7 +14,7 @@ const Login = () => {
     const password = passwordInputRef.current?.value;
     console.log({email, password});
     const response = await fetch(
-      'http://192.168.64.10:3000/login',
+      'https://api.bunny.com:3000/login',
       {
         method: 'POST',
         credentials: 'include',
