@@ -69,7 +69,8 @@ export default class Api {
 
     const actions: IAction[] = [
       new LoginAction(),
-      new LogoutAction()
+      new LogoutAction(),
+      // new BooksAction()
     ];
     const actionsWithAuth: IAction[] = [
       new BooksAction()
@@ -81,6 +82,7 @@ export default class Api {
     actionsWithAuth.forEach(
       action => app[action.method](
         action.path,
+        cors(corsOptions),
         passport.authenticate('jwt', {session: false}),
         action.apply));
 

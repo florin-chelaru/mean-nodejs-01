@@ -36,7 +36,7 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <main className="form-signin">
       {denied ? <p>Login failed</p> : ''}
       <form onSubmit={submitHandler}>
         <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
@@ -44,7 +44,7 @@ const Login = () => {
         <input type="password" className="form-control" placeholder="Password" ref={passwordInputRef}/>
         <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
       </form>
-    </div>
+    </main>
   );
 };
 
