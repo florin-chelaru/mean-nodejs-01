@@ -1,7 +1,6 @@
 import {NextFunction, Request, Response} from "express";
 import IAction from "./IAction";
 import HttpStatus from 'http-status-codes';
-import fs from "fs";
 import jwt from "jsonwebtoken";
 import Api from "../Api";
 

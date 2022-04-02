@@ -10,6 +10,7 @@ import BooksAction from "./actions/Books";
 import cookies from "cookie-parser";
 import jwt from "jsonwebtoken";
 import cors from "cors";
+import GoogleSignInAction from "./actions/GoogleSignIn";
 
 
 export default class Api {
@@ -70,7 +71,7 @@ export default class Api {
     const actions: IAction[] = [
       new LoginAction(),
       new LogoutAction(),
-      // new BooksAction()
+      new GoogleSignInAction(),
     ];
     const actionsWithAuth: IAction[] = [
       new BooksAction()

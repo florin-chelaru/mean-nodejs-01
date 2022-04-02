@@ -50,3 +50,4 @@ More about react and jwt:
 1. React+gateway layers+http-only: https://vivekkrishnavk.medium.com/using-jwts-as-http-only-cookies-with-react-js-a301991fdfa6
 2. Auth+Passport+JWT+Google+Facebook: https://www.jeansnyman.com/posts/authentication-in-express-with-google-and-facebook-using-passport-and-jwt/
 3. Creating the Google Login component, and more: https://www.freakyjolly.com/google-signin-login-button-in-react-js-example-using-react-google_login-package/
+4. Gist with how it's done in React, including loading the script dynamically: https://gist.github.com/pmckee11/13b1dffbf1d271a782ed7f65480b978f
