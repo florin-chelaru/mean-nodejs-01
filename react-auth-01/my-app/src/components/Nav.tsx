@@ -10,7 +10,6 @@ const Nav = () => {
     fetch('https://api.bunny.com:3000/logout', {credentials: 'include'}).then(() => userContext.signOut());
   };
   const googleSignIn = async (e: GoogleCredentialResponse) => {
-    console.log(e.credential);
     const response = await fetch(
       'https://api.bunny.com:3000/google',
       {
