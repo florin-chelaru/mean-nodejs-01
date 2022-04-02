@@ -5,20 +5,21 @@ import Nav from "./components/Nav";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
-import Logout from "./pages/Logout";
+import {UserContextProvider} from "./store/UserContext";
 
 function App() {
   return (
     <div className='App'>
-      <BrowserRouter>
-        <Nav/>
-        <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/logout' element={<Logout/>}/>
-          <Route path='/register' element={<Register/>}/>
-        </Routes>
-      </BrowserRouter>
+      <UserContextProvider>
+        <BrowserRouter>
+          <Nav/>
+          <Routes>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/login' element={<Login/>}/>
+            <Route path='/register' element={<Register/>}/>
+          </Routes>
+        </BrowserRouter>
+      </UserContextProvider>
     </div>
   );
 }

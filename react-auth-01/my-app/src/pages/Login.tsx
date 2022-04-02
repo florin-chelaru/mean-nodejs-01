@@ -1,7 +1,9 @@
-import React, {SyntheticEvent, useRef, useState} from "react";
+import React, {SyntheticEvent, useContext, useRef, useState} from "react";
 import {Navigate} from "react-router-dom";
+import UserContext from "../store/UserContext";
 
 const Login = () => {
+  const userContext = useContext(UserContext);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
@@ -10,9 +12,8 @@ const Login = () => {
 
   const submitHandler = async (e: SyntheticEvent) => {
     e.preventDefault();
-    const email = emailInputRef.current?.value;
-    const password = passwordInputRef.current?.value;
-    console.log({email, password});
+    const email = emailInputRef.current?.value || '';
+    const password = passwordInputRef.current?.value || '';
     const response = await fetch(
       'https://api.bunny.com:3000/login',
       {
@@ -23,6 +24,7 @@ const Login = () => {
       }
     );
     if (response.ok) {
+      userContext.signIn(email);
       setRedirect(true);
       setDenied(false);
     } else {

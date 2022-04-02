@@ -45,3 +45,8 @@ serve -s build
 
 The backend login functionality:
 https://github.com/scalablescripts/auth-backend/blob/1a342ae404fe4a3fb6c3b416f6395e75218e1f16/app/Http/Controllers/AuthController.php
+
+More about react and jwt:
+1. React+gateway layers+http-only: https://vivekkrishnavk.medium.com/using-jwts-as-http-only-cookies-with-react-js-a301991fdfa6
+2. Auth+Passport+JWT+Google+Facebook: https://www.jeansnyman.com/posts/authentication-in-express-with-google-and-facebook-using-passport-and-jwt/
+3. Creating the Google Login component, and more: https://www.freakyjolly.com/google-signin-login-button-in-react-js-example-using-react-google_login-package/

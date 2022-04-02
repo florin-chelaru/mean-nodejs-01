@@ -20,7 +20,6 @@ const Register = () => {
       }
     );
     const createdUser = await response.json();
-    console.log(createdUser);
 
     setRedirect(true);
   };

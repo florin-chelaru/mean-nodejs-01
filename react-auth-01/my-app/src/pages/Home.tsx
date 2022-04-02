@@ -1,14 +1,29 @@
-import React, {useEffect, useState} from 'react';
+import React, {Component} from 'react';
 import Book from "../models/Book";
 import BookItem from "../components/BookItem";
-import {Navigate} from "react-router-dom";
+import UserContext from "../store/UserContext";
 
-const Home = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [loadedBooks, setLoadedBooks] = useState<Book[]>([]);
-  const [error, setError] = useState<boolean>(false);
+type HomeProps = {};
+type HomeState = {
+  isLoading: boolean,
+  loadedBooks: Book[],
+  isDenied: boolean
+}
 
-  const getBooks = async (): Promise<Book[]> => {
+export default class Home extends Component<HomeProps, HomeState> {
+  static contextType = UserContext;
+  context!: React.ContextType<typeof UserContext>;
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      loadedBooks: [],
+      isDenied: false
+    };
+  }
+
+  private async fetchBooks(): Promise<void> {
     const response = await fetch('https://api.bunny.com:3000/books',
       {
         credentials: "include",
@@ -16,42 +31,46 @@ const Home = () => {
       });
     if (response.ok) {
       const books: Book[] = await response.json();
-      return books;
+      this.setState({isLoading: false, loadedBooks: books, isDenied: false});
     } else {
-      setError(true);
-      return [];
+      this.setState({isLoading: false, loadedBooks: [], isDenied: true});
     }
   }
 
-  useEffect(() => {
-      setIsLoading(true);
-      getBooks().then((books) => {
-        setIsLoading(false);
-        if (!error) {
-          setLoadedBooks(books);
-        }
-      });
-    },
-    // only execute when the below dependencies change. and since there's no dependency, it only executes once.
-    []);
-
-  if (isLoading) {
-    return <section>
-      <p>Loading...</p>
-    </section>;
+  componentDidMount() {
+    if (this.context.userInfo.signedIn) {
+      this.fetchBooks().then();
+    }
   }
 
-  if (error) {
-    return <Navigate to='/login'/>;
+  render() {
+    if (!this.context.userInfo.signedIn) {
+      return <section>
+        <p>User is not signed in</p>
+      </section>;
+    }
+
+    if (this.state.loadedBooks)
+
+    if (this.state.isLoading) {
+      return <section>
+        <p>Loading...</p>
+      </section>;
+    }
+
+    if (this.state.isDenied) {
+      return <section>
+        <p>There was an error fetching books for user {this.context.userInfo.email}. Please sign in again.</p>
+      </section>;
+    }
+
+    return (
+      <section>
+        <h1>Book list of {this.context.userInfo.email}</h1>
+        <div className="container">
+          {this.state.loadedBooks.map(book => <BookItem book={book} key={book.id}/>)}
+        </div>
+      </section>
+    );
   }
-
-  return (
-    <section>
-      <div className="container">
-        {loadedBooks.map(book => <BookItem book={book} key={book.id}/>)}
-      </div>
-    </section>
-  );
-};
-
-export default Home;
+}
