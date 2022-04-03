@@ -20,7 +20,7 @@ export default class LoginAction implements IAction {
     res.cookie('jwt', token, {
       domain: 'bunny.com',
       httpOnly: true,
-      secure: true
+      secure: true,
     });
 
     res.status(HttpStatus.OK).send();

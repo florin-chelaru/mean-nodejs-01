@@ -29,7 +29,7 @@ export default class Api {
     app.use(cookies());
 
     const corsOptions = {
-      origin: 'https://bunny.com:3000',
+      origin: ['https://bunny.com:3000', /\.bunny\.com:3000$/],
       optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
       methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
       credentials: true,
@@ -53,7 +53,6 @@ export default class Api {
           if (!jwtPayload) {
             return done('No token found...');
           }
-          console.log(JSON.stringify(jwtPayload));
           return done(null, jwtPayload);
         }
       )
@@ -62,10 +61,6 @@ export default class Api {
     const server = https.createServer({
       key: fs.readFileSync('certs/bunny.com+1-key.pem'),
       cert: fs.readFileSync('certs/bunny.com+1.pem'),
-      // sudo vi /etc/environment
-      // set CERT_PASSPHRASE to something
-      // source /etc/passphrase
-      passphrase: process.env.CERT_PASSPHRASE
     }, app);
 
     const actions: IAction[] = [

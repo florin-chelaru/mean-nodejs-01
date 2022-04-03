@@ -6,8 +6,9 @@ export default class LogoutAction implements IAction {
   readonly path = '/logout';
 
   apply(req: Request, res: Response, next: NextFunction) {
-    console.log('Signing out...');
-    res.clearCookie('jwt', {domain: 'bunny.com'});
+    res.clearCookie('jwt', {
+      domain: 'bunny.com',
+    });
     res.status(200).send();
   }
 }
