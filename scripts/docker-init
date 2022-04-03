@@ -11,15 +11,35 @@ multipass docker1 run hello-world
 
 multipass docker1 run -p 3000:3000 -e github='https://github.com/florin-chelaru/api-auth-01.git' -it oktaadmin/dockertest
 docker build https://github.com/florin-chelaru/api-auth-01.git
-multipass docker1 build -t exchange https://github.com/florin-chelaru/api-auth-01.git#main
-docker build -t https://github.com/florin-chelaru/api-auth-01.git#main
+multipass docker1 build -t api-auth-01 https://github.com/florin-chelaru/api-auth-01.git#main
+docker build -t api-auth-01 https://github.com/florin-chelaru/api-auth-01.git#main
 
 git clone https://github.com/florin-chelaru/api-auth-01.git
 
-# This doesn't seem to work how we want it to:
-docker build - < Dockerfile
+# Build locally the image
+docker build --tag api-auth-01 .
 
-Log into the docker image to run ssh commands:
-docker run -it dd6c6d5c8da3 sh
+# Log into the docker image to run ssh commands:
+docker exec -it 28549b3679df sh
 
-docker run -it dd6c6d5c8da3 --env-file /Users/florinc/dev/api-auth-01/.env
+# To edit a file: 
+apt-get update
+apt-get install vim
+
+# Include env variables
+docker run --env-file /home/ubuntu/docker-env.txt -it 28549b3679df
+
+docker run --env-file /Users/florinc/dev/api-auth-01/.env -it api-auth-01
+
+# Actually, there is a bug with --env-file, which is solved by running this script and instructions inside:
+# https://gist.github.com/hudon/149466af21dfc52fdc70
+
+./dockerize-env .env
+
+source .env.exported && docker run --env-file .env.vars api-auth-01
+
+# To expose the ip/port to localhost, we need to include -p <host port>:<container port>
+source .env.exported && docker run --env-file .env.vars -p 3000:3000 api-auth-01
+
+# From multipass:
+source env.exported && docker run --env-file env.vars -p 3000:3000 api-auth-01 &
