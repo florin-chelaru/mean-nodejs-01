@@ -1,0 +1,25 @@
+Docker on multipass: https://ubuntu.com/blog/replacing-docker-desktop-on-windows-and-mac-with-multipass
+cloud-init and multipass: https://ubuntu.com/blog/using-cloud-init-with-multipass
+
+
+multipass launch --name docker-vm-01 --cloud-init docker-vm-01.yaml
+
+multipass alias docker-vm-01:docker docker1
+
+multipass docker1 run hello-world
+
+
+multipass docker1 run -p 3000:3000 -e github='https://github.com/florin-chelaru/api-auth-01.git' -it oktaadmin/dockertest
+docker build https://github.com/florin-chelaru/api-auth-01.git
+multipass docker1 build -t exchange https://github.com/florin-chelaru/api-auth-01.git#main
+docker build -t https://github.com/florin-chelaru/api-auth-01.git#main
+
+git clone https://github.com/florin-chelaru/api-auth-01.git
+
+# This doesn't seem to work how we want it to:
+docker build - < Dockerfile
+
+Log into the docker image to run ssh commands:
+docker run -it dd6c6d5c8da3 sh
+
+docker run -it dd6c6d5c8da3 --env-file /Users/florinc/dev/api-auth-01/.env
