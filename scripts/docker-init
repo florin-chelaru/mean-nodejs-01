@@ -19,6 +19,10 @@ git clone https://github.com/florin-chelaru/api-auth-01.git
 # Build locally the image
 docker build --tag api-auth-01 .
 
+# This builds for pushing to docker hub. My username is florinchelaru.
+docker build -t florinchelaru/api-auth-01:1.0.2 . 
+docker push florinchelaru/api-auth-01:1.0.2
+
 # Log into the docker image to run ssh commands:
 docker exec -it 28549b3679df sh
 
