@@ -16,7 +16,29 @@ db.stocks.find({
 
 db.stocks.createIndex({ "metadata.symbol" :1, date : 1});
 
+
+db.stocks.aggregate([{
+    $group: {
+        _id: {
+            date: {
+                $dateTrunc: {
+                    date: "$date",
+                    unit: "month"
+                }
+            },
+            symbol: "$metadata.symbol"
+        },
+        close: {
+            $avg: "$close"
+        }
+    }
+}])
+
 # more about querying data: https://www.mongodb.com/features/mongodb-time-series-data
+# other useful links:
+# https://www.mongodb.com/docs/manual/core/timeseries-collections
+# https://www.mongodb.com/docs/manual/core/aggregation-pipeline/#std-label-aggregation-pipeline
+# https://www.mongodb.com/docs/manual/reference/operator/aggregation-pipeline/
 
 db.stocks.insertMany( [
 { "date": ISODate("2022-01-03T00:00:00.000Z"), "metadata": { "symbol": "GOOG" }, "close": 2901.49 },
