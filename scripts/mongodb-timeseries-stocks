@@ -34,6 +34,21 @@ db.stocks.aggregate([{
     }
 }])
 
+// unique symbols
+db.stocks.aggregate([
+  {
+    $match: {
+      "metadata.symbol": "VOO"
+    }
+  },
+  {
+    $group: {
+      _id: "$metadata.symbol"
+    }
+  },
+  {$limit: 1}
+])
+
 # more about querying data: https://www.mongodb.com/features/mongodb-time-series-data
 # other useful links:
 # https://www.mongodb.com/docs/manual/core/timeseries-collections
