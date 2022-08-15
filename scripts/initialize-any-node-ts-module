@@ -1,0 +1,135 @@
+npm init
+
+# add build to .gitignore!
+
+# typescript:
+
+npm install --save-dev typescript
+vi tsconfig.json
+
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "build"
+  },
+  "lib": ["es2015"]
+}
+
+
+# eslint and prettier: https://dev.to/knowankit/setup-eslint-and-prettier-in-react-app-357b
+
+npm install --save-dev eslint
+npx eslint --init
+
+
+You can also run this command directly using 'npm init @eslint/config'.
+Need to install the following packages:
+  @eslint/create-config
+Ok to proceed? (y) y
+✔ How would you like to use ESLint? · style
+✔ What type of modules does your project use? · esm
+✔ Which framework does your project use? · none
+✔ Does your project use TypeScript? · No / Yes
+✔ Where does your code run? · browser
+✔ How would you like to define a style for your project? · guide
+✔ Which style guide do you want to follow? · standard
+✔ What format do you want your config file to be in? · JSON
+Checking peerDependencies of eslint-config-standard@latest
+The config that you've selected requires the following dependencies:
+
+@typescript-eslint/eslint-plugin@latest eslint-config-standard@latest eslint@^8.0.1 eslint-plugin-import@^2.25.2 eslint-plugin-n@^15.0.0 eslint-plugin-promise@^6.0.0 @typescript-eslint/parser@latest
+✔ Would you like to install them now? · No / Yes
+✔ Which package manager do you want to use? · npm
+Installing @typescript-eslint/eslint-plugin@latest, eslint-config-standard@latest, eslint@^8.0.1, eslint-plugin-import@^2.25.2, eslint-plugin-n@^15.0.0, eslint-plugin-promise@^6.0.0, @typescript-eslint/parser@latest
+
+added 79 packages, and audited 192 packages in 5s
+
+73 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+# prettier:
+
+npm install eslint-config-prettier eslint-plugin-prettier prettier --save-dev
+
+# add to .eslintrc.json/extends:
+
+"plugin:prettier/recommended"
+
+# in .prettierrc:
+
+{
+  "semi": false,
+  "tabWidth": 2,
+  "printWidth": 100,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "jsxBracketSameLine": true
+}
+
+# in package.json:
+
+"lint": "eslint .",
+"lint:fix": "eslint --fix",
+"format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+
+# prettier WebStorm: https://www.jetbrains.com/help/webstorm/prettier.html
+# if prettier has been used before, then just go to:
+# Settings/Preferences (CMD+,) > Languages & Frameworks > Javascript > Prettier:
+# - run for files: {**/*,*}.{ts,tsx}
+# - on reformat code action
+# - on save
+
+# also ESLint in WebStorm: Automatic ESLint configuration, and run --fix on save
+
+# in .eslintrc.json:
+"env": { 
+  ...
+  "jest": true
+}
+
+"rules": {
+  "no-unused-vars": "off",
+  "@typescript-eslint/no-unused-vars": "error"
+}
+
+####
+
+# unit testing, jest: https://jestjs.io/docs/getting-started
+
+npm install --save-dev jest
+npx jest init
+
+The following questions will help Jest to create a suitable configuration for your project
+
+✔ Would you like to use Jest when running "test" script in "package.json"? … yes
+✔ Would you like to use Typescript for the configuration file? … no
+✔ Choose the test environment that will be used for testing › node
+✔ Do you want Jest to add coverage reports? … no
+✔ Which provider should be used to instrument code for coverage? › v8
+✔ Automatically clear mock calls, instances, contexts and results before every test? … yes
+
+✏️  Modified /Users/florinc/dev/smart-jobs/package.json
+
+# add the following to jest.config.js:
+preset: 'ts-jest',
+
+npm install ts-jest @types/jest --save-dev
+
+# we may need to restart webstorm
+# add test file:
+
+test('sample test', () => {
+  const a = [1, 2, 3]
+  expect([...a]).toEqual([1, 2, 3])
+})
+
+
+
+
+
